@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -540,29 +540,6 @@ demanda               150        15.0
 <img alt="_images/889ab51521300f70f0d6cbc3f1ce383bd343a2562ff82c1c03803e07404e1885.png" src="_images/889ab51521300f70f0d6cbc3f1ce383bd343a2562ff82c1c03803e07404e1885.png" />
 </div>
 </div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">tabla_nulos</span><span class="p">[</span><span class="n">tabla_nulos</span><span class="p">[</span><span class="s2">&quot;Nulos&quot;</span><span class="p">]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Porcentaje&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s2">&quot;barh&quot;</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Porcentaje de valores faltantes por variable&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/0ffffe22b7aa1a40afb09a9546b48f2c0ec140f24ee0bb4a5e8d6807280925b5.png" src="_images/0ffffe22b7aa1a40afb09a9546b48f2c0ec140f24ee0bb4a5e8d6807280925b5.png" />
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">msno</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/b09cfdea530aacaf96ceca5f565d540e4456bc33c7739571fa6e15cbefede1aa.png" src="_images/b09cfdea530aacaf96ceca5f565d540e4456bc33c7739571fa6e15cbefede1aa.png" />
-</div>
-</div>
 <p>Mediante estas gráficas visualizamos los faltantes en cada variable, el porcentaje de los faltantes en diagrama de barras y un gráfico de calor, lo cual nos indican que los valores faltantes se concentran principalmente en las variables estado_civil y puntuacion_credito, mientras que en el resto se encuentran dispersos. Por lo que debemos clasificar e imputar variables.</p>
 <p>Ahora, las clasificamos de acuerdo a sus patrones:</p>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -641,12 +618,8 @@ demanda               150        15.0
 <ul class="simple">
 <li><p>¿Se justifica imputar o dejar los nulos?
 No aplica pues no hay nulos.</p></li>
-<li><p>¿Qué riesgo tendría imputar esta variable?
-Introducir fechas inventadas y desalinear el orden.</p></li>
-<li><p>¿Qué técnica sería más adecuada (media, mediana, moda, interpolación, etc.)?
-Ninguna.</p></li>
 </ul>
-<p>Para la bariable sexo:</p>
+<p>Para la variable sexo:</p>
 <ul class="simple">
 <li><p>¿Se justifica imputar o dejar los nulos?
 Imputar porque el porcentaje es bajo.</p></li>
@@ -1144,7 +1117,6 @@ Mann-Whitney U: MannwhitneyuResult(statistic=485075.0, pvalue=0.9952896546851682
 </div>
 <p>En todo este trabajo logramos identificar qué variables tenían datos faltantes y en qué proporción.</p>
 <p>A partir de ese análisis se tomamos para las variables numéricas imputaciones con media o mediana dependiendo de la distribución. En variables categóricas se usó la moda y en algunos casos se dejó el nulo porque imputar podría distorsionar los resultados. No eliminamos filas completas pues se podía perder información importante.</p>
-<p>En el heatmap de correlaciones de nulos mostró que los faltantes no estaban totalmente al azar, lo cual confirma que había que tratarlos.</p>
 <p>Así, el dataset quedó limpio y listo para análisis posteriores junto con imputaciones justificadas según cada variable y con una estrategia que busca minimizar el riesgo de sesgos.</p>
 <section id="imputaciones-para-series-de-tiempo">
 <h2><strong>Imputaciones para series de tiempo</strong><a class="headerlink" href="#imputaciones-para-series-de-tiempo" title="Link to this heading">#</a></h2>
