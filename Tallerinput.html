@@ -531,7 +531,7 @@ demanda               150        15.0
 <img alt="_images/889ab51521300f70f0d6cbc3f1ce383bd343a2562ff82c1c03803e07404e1885.png" src="_images/889ab51521300f70f0d6cbc3f1ce383bd343a2562ff82c1c03803e07404e1885.png" />
 </div>
 </div>
-<p>Mediante estas gráficas visualizamos los faltantes en cada variable, el porcentaje de los faltantes en diagrama de barras y un gráfico de calor, lo cual nos indican que los valores faltantes se concentran principalmente en las variables estado_civil y puntuacion_credito, mientras que en el resto se encuentran dispersos. Por lo que debemos clasificar e imputar variables.</p>
+<p>Mediante esta visualización de los faltantes en cada variable nos indica que los valores faltantes se concentran principalmente en las variables estado_civil y puntuacion_credito, mientras que en el resto se encuentran dispersos. Por lo que debemos clasificar e imputar variables.</p>
 <p>Ahora, las clasificamos de acuerdo a sus patrones:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -751,17 +751,20 @@ No se imputó; se creó una variable indicadora demanda_faltante.</p></li>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nulos_antes</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-<span class="n">nulos_despues</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_before</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> 
+<span class="n">df_after</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> 
+
+<span class="n">nulos_antes</span> <span class="o">=</span> <span class="n">df_before</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">nulos_despues</span> <span class="o">=</span> <span class="n">df_after</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 <span class="n">resumen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
     <span class="s2">&quot;Nulos antes&quot;</span><span class="p">:</span> <span class="n">nulos_antes</span><span class="p">,</span>
     <span class="s2">&quot;Nulos después&quot;</span><span class="p">:</span> <span class="n">nulos_despues</span><span class="p">,</span>
-    <span class="s2">&quot;Total filas&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+    <span class="s2">&quot;Total filas&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_after</span><span class="p">)</span>
 <span class="p">})</span>
 
 <span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">% a</span><span class="s2">ntes&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;Nulos antes&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;Total filas&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;</span><span class="si">% d</span><span class="s2">espués&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;Nulos después&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">resumen</span><span class="p">[</span><span class="s2">&quot;Total filas&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-
+<span class="n">resumen</span> <span class="o">=</span> <span class="n">resumen</span><span class="p">[[</span><span class="s2">&quot;Nulos antes&quot;</span><span class="p">,</span> <span class="s2">&quot;Nulos después&quot;</span><span class="p">,</span> <span class="s2">&quot;Total filas&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">% a</span><span class="s2">ntes&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">espués&quot;</span><span class="p">]]</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Resumen de imputación:&quot;</span><span class="p">)</span>
 <span class="n">display</span><span class="p">(</span><span class="n">resumen</span><span class="p">)</span>
 </pre></div>
@@ -798,138 +801,138 @@ No se imputó; se creó una variable indicadora demanda_faltante.</p></li>
   </thead>
   <tbody>
     <tr>
-      <th>fecha</th>
-      <td>0</td>
-      <td>0</td>
+      <th>altura_cm</th>
+      <td>80.0</td>
+      <td>80</td>
       <td>1000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>sexo</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1000</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>8.0</td>
+      <td>8.0</td>
     </tr>
     <tr>
       <th>ciudad</th>
-      <td>0</td>
+      <td>50.0</td>
       <td>0</td>
       <td>1000</td>
-      <td>0.0</td>
+      <td>5.0</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>nivel_educativo</th>
-      <td>0</td>
-      <td>0</td>
+      <th>demanda</th>
+      <td>150.0</td>
+      <td>150</td>
       <td>1000</td>
-      <td>0.0</td>
-      <td>0.0</td>
+      <td>15.0</td>
+      <td>15.0</td>
     </tr>
     <tr>
-      <th>segmento</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1000</td>
-      <td>0.0</td>
-      <td>0.0</td>
-    </tr>
-    <tr>
-      <th>estado_civil</th>
-      <td>0</td>
+      <th>demanda_faltante</th>
+      <td>NaN</td>
       <td>0</td>
       <td>1000</td>
-      <td>0.0</td>
+      <td>NaN</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>edad</th>
+      <td>30.0</td>
       <td>0</td>
+      <td>1000</td>
+      <td>3.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>estado_civil</th>
+      <td>350.0</td>
+      <td>0</td>
+      <td>1000</td>
+      <td>35.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>fecha</th>
+      <td>0.0</td>
       <td>0</td>
       <td>1000</td>
       <td>0.0</td>
       <td>0.0</td>
-    </tr>
-    <tr>
-      <th>altura_cm</th>
-      <td>80</td>
-      <td>80</td>
-      <td>1000</td>
-      <td>8.0</td>
-      <td>8.0</td>
-    </tr>
-    <tr>
-      <th>ingresos</th>
-      <td>120</td>
-      <td>120</td>
-      <td>1000</td>
-      <td>12.0</td>
-      <td>12.0</td>
     </tr>
     <tr>
       <th>gasto_mensual</th>
-      <td>250</td>
+      <td>250.0</td>
       <td>250</td>
       <td>1000</td>
       <td>25.0</td>
       <td>25.0</td>
-    </tr>
-    <tr>
-      <th>puntuacion_credito</th>
-      <td>500</td>
-      <td>500</td>
-      <td>1000</td>
-      <td>50.0</td>
-      <td>50.0</td>
-    </tr>
-    <tr>
-      <th>demanda</th>
-      <td>150</td>
-      <td>150</td>
-      <td>1000</td>
-      <td>15.0</td>
-      <td>15.0</td>
-    </tr>
-    <tr>
-      <th>ingresos_faltante</th>
-      <td>0</td>
-      <td>0</td>
-      <td>1000</td>
-      <td>0.0</td>
-      <td>0.0</td>
     </tr>
     <tr>
       <th>gasto_mensual_faltante</th>
-      <td>0</td>
+      <td>NaN</td>
       <td>0</td>
       <td>1000</td>
+      <td>NaN</td>
       <td>0.0</td>
+    </tr>
+    <tr>
+      <th>ingresos</th>
+      <td>120.0</td>
+      <td>120</td>
+      <td>1000</td>
+      <td>12.0</td>
+      <td>12.0</td>
+    </tr>
+    <tr>
+      <th>ingresos_faltante</th>
+      <td>NaN</td>
+      <td>0</td>
+      <td>1000</td>
+      <td>NaN</td>
       <td>0.0</td>
+    </tr>
+    <tr>
+      <th>nivel_educativo</th>
+      <td>100.0</td>
+      <td>0</td>
+      <td>1000</td>
+      <td>10.0</td>
+      <td>0.0</td>
+    </tr>
+    <tr>
+      <th>puntuacion_credito</th>
+      <td>500.0</td>
+      <td>500</td>
+      <td>1000</td>
+      <td>50.0</td>
+      <td>50.0</td>
     </tr>
     <tr>
       <th>puntuacion_credito_faltante</th>
-      <td>0</td>
+      <td>NaN</td>
       <td>0</td>
       <td>1000</td>
-      <td>0.0</td>
+      <td>NaN</td>
       <td>0.0</td>
     </tr>
     <tr>
-      <th>demanda_faltante</th>
-      <td>0</td>
+      <th>segmento</th>
+      <td>200.0</td>
       <td>0</td>
       <td>1000</td>
+      <td>20.0</td>
       <td>0.0</td>
+    </tr>
+    <tr>
+      <th>sexo</th>
+      <td>20.0</td>
+      <td>0</td>
+      <td>1000</td>
+      <td>2.0</td>
       <td>0.0</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-<p>EN este resumen se puede ver que la imputación muestra que las variables sexo, ciudad, nivel_educativo, segmento, estado_civil, edad y altura_cm fueron imputadas usando las técnicas como categorías adicionales ( “Desconocido”, “Sin clasificar” o “No responde”).</p>
+<p>En este resumen se puede ver que la imputación muestra que las variables sexo, ciudad, nivel_educativo, segmento, estado_civil, edad y altura_cm fueron imputadas usando las técnicas como categorías adicionales ( “Desconocido”, “Sin clasificar” o “No responde”).</p>
 <p>Las variables ingresos, gasto_mensual, puntuacion_credito y demanda pues sus valores faltantes no ocurren de manera aleatoria, por lo que imputarlas con métodos simples como la media, mediana o moda generaría sesgos en el análisis.</p>
 <p>Por eso se creó variables adicionales (ingresos_faltante, gasto_mensual_faltante, puntuacion_credito_faltante y demanda_faltante), y así no altera la información original.</p>
 <div class="cell docutils container">
